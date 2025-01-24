@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Header from "../components/header-footer/Header";
+import Footer from "../components/header-footer/Footer";
 import ListUsers from "./ListUsers";
 export default function Top10Lists() {
 return (

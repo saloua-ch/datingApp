@@ -1,11 +1,10 @@
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import React, { useState } from "react";
-import { StyleSheet, View, ScrollView } from "react-native";
 import { TextInput } from "react-native-paper";
 import Header from "../header-footer/Header";
 import Footer from "../header-footer/Footer";
-
 export default function Form() {
-  const [userInfo, setUserInfo] = useState({
+  const user = {
     firstName: "",
     lastName: "",
     phone: "",
@@ -14,40 +13,119 @@ export default function Form() {
     city: "",
     job: "",
     email: "",
-  });
-
-  const handleInputChange = (key, value) => {
-    setUserInfo({ ...userInfo, [key]: value });
   };
-
+  const [userInfo, setUserInfo] = useState(user);
+  // console.log(userInfo);
   return (
     <View style={styles.container}>
       <Header />
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        {Object.keys(userInfo).map((key) => (
+      <View style={styles.textContainer}>
+        <Text style={styles.title}> Update Your Profile Infos</Text>
+      </View>
+      <View style={styles.containerScroll}>
+        <ScrollView style={styles.subContainer}>
           <TextInput
-            key={key}
-            label={key.charAt(0).toUpperCase() + key.slice(1)}
-            value={userInfo[key]}
-            onChangeText={(text) => handleInputChange(key, text)}
+            label="First Name"
+            value={userInfo.firstName}
+            onChangeText={(text) => {
+              setUserInfo({ firstName: text });
+            }}
             mode="outlined"
+            selectionColor="red"
             style={styles.input}
           />
-        ))}
-      </ScrollView>
+          <TextInput
+            label="Last Name"
+            value={userInfo.lastName}
+            onChangeText={(text) => {
+              setUserInfo({ lastName: text });
+            }}
+            mode="outlined"
+            selectionColor="red"
+            style={styles.input}
+          />
+          <TextInput
+            label="Phone Number"
+            value={userInfo.phone}
+            onChangeText={(text) => {
+              setUserInfo({ phone: text });
+            }}
+            mode="outlined"
+            selectionColor="red"
+            keyboardType="numeric"
+            style={styles.input}
+          />
+          <TextInput
+            label="Birthday"
+            value={userInfo.birthday}
+            onChangeText={(text) => {
+              setUserInfo({ birthday: text });
+            }}
+            mode="outlined"
+            selectionColor="red"
+            style={styles.input}
+          />
+          <TextInput
+            label="Country"
+            value={userInfo.country}
+            onChangeText={(text) => {
+              setUserInfo({ country: text });
+            }}
+            mode="outlined"
+            selectionColor="red"
+            style={styles.input}
+          />
+          <TextInput
+            label="City"
+            value={userInfo.city}
+            onChangeText={(text) => {
+              setUserInfo({ city: text });
+            }}
+            mode="outlined"
+            selectionColor="red"
+            style={styles.input}
+          />
+          <TextInput
+            label="Job"
+            value={userInfo.job}
+            onChangeText={(text) => {
+              setUserInfo({ job: text });
+            }}
+            mode="outlined"
+            selectionColor="red"
+            style={styles.input}
+          />
+          <TextInput
+            label="Email"
+            value={userInfo.email}
+            onChangeText={(text) => {
+              setUserInfo({ email: text });
+            }}
+            mode="outlined"
+            selectionColor="red"
+            style={styles.input}
+            keyboardType="email-address"
+          />
+        </ScrollView>
+      </View>
       <Footer />
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: "center",
+    justifyContent: "space-between",
   },
-  scrollView: {
-    padding: 20,
+  containerScroll: { flex: 1, height: 300, marginBottom: 30 },
+  subContainer: { width: 250, marginTop: 90 },
+  title: { marginTop: 10, fontSize: 16 },
+  textContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    marginTop: 100,
   },
-  input: {
-    marginBottom: 15,
-  },
+  input: { marginBottom: 10 },
 });

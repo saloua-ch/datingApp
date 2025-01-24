@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, FlatList, Text } from "react-native";
 import axios from "axios";
-import User from "../User";
+import User from "D:/DatingApp/User.js";
 
 export default function ListProfiles() {
   const [users, setUsers] = useState([]);
