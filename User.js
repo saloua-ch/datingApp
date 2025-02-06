@@ -98,7 +98,21 @@ export default function User({
             <Text style={styles.label}>Job: </Text>
             {jobTitle}
           </Text>
-          <Image style={styles.plusIcon} source={require("./assets/fb.png")} />
+          <View style={styles.socialIcons}>
+            <Image style={styles.icon} source={require("./assets/fb.png")} />
+            <Image
+              style={styles.icon}
+              source={require("./assets/instagram.png")}
+            />
+            <Image
+              style={styles.icon}
+              source={require("./assets/linkedin.png")}
+            />
+            <Image
+              style={styles.icon}
+              source={require("./assets/twitter.png")}
+            />
+          </View>
         </View>
       </Modal>
     </View>
@@ -154,6 +168,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 10,
+  },
+  socialIcons: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 15,
+    
+  },
+  icon: {
+    width: 40,
+    height: 40,
   },
   modalText: {
     fontSize: 14,
