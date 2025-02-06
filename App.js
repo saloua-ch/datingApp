@@ -6,7 +6,7 @@ import AllCharacteristics from"./components/characteristics/AllCharacteristics";
 export default function App() {
   return (
     <View style={styles.container}>
-      <Form />
+      <AllProfilesMain/>
     </View>
   );
 }

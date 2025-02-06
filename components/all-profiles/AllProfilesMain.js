@@ -1,4 +1,4 @@
-import React from "react";
+  import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import Header from "../header-footer/Header";
 import Footer from "../header-footer/Footer";
