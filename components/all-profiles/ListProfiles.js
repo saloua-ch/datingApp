@@ -1,18 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { StyleSheet, View, FlatList, Text } from "react-native";
 import axios from "axios";
 import User from "D:/DatingApp/User.js";
 
 export default function ListProfiles() {
   const [users, setUsers] = useState([]);
+  const [quote, setQuote] = useState("");
   const url = "https://randomuser.me/api/?results=100";
 
+  // Fetch users on mount
   useEffect(() => {
     axios
       .get(url)
       .then((res) => setUsers(res.data.results))
       .catch((err) => console.error("Error fetching users:", err));
   }, []);
+
+  // Fetch quote using useCallback to prevent unnecessary re-renders
+  const fetchQuote = useCallback(async () => {
+    try {
+      const response = await axios.get(
+        "https://zenquotes.io/api/random" // Fixed HTTP → HTTPS
+      );
+      setQuote(response.data.content);
+    } catch (error) {
+      console.error("Error fetching quote:", error);
+      setQuote("No quote available.");
+    }
+  }, []);
+
+  // Fetch quote when component mounts
+  useEffect(() => {
+    fetchQuote();
+  }, [fetchQuote]);
 
   return (
     <View style={styles.container}>
@@ -29,6 +49,8 @@ export default function ListProfiles() {
               ageUser={item.dob.age}
               countryUser={item.location.country}
               pictureUser={item.picture.medium}
+              cellPhone={item.cell}
+              quote={quote}
             />
           )}
           style={{ marginTop: 20 }}

@@ -1,4 +1,4 @@
-import { StyleSheet, View, Pressable, Image, Button } from "react-native";
+import { StyleSheet, View, Pressable, Image } from "react-native";
 import React, { useState, useEffect } from "react";
 import Modal from "react-native-modal";
 import { Text, Card } from "@rneui/themed";
@@ -14,14 +14,16 @@ export default function User({
 }) {
   const [isModalVisible, setModalVisible] = useState(false);
   const [jobTitle, setJobTitle] = useState("");
+  const [quote, setQuote] = useState("");
 
-  // Set the job title once when the component mounts
+  // Set the job title and quote when the component mounts
   useEffect(() => {
     setJobTitle(faker.person.jobType());
+    setQuote(faker.lorem.sentence()); // Generate a random quote
   }, []);
 
   const toggleModal = () => {
-    console.log("Modal Toggled"); // Debugging log
+    console.log("Modal Toggled");
     setModalVisible(!isModalVisible);
   };
 
@@ -64,6 +66,7 @@ export default function User({
             <Text style={styles.label}>
               Job: <Text style={styles.value}>{jobTitle}</Text>
             </Text>
+           
           </View>
         </View>
       </Card>
@@ -97,6 +100,9 @@ export default function User({
           <Text style={styles.modalText}>
             <Text style={styles.label}>Job: </Text>
             {jobTitle}
+          </Text>
+          <Text style={styles.modalQuote}>
+            ❝ {quote} ❞
           </Text>
           <View style={styles.socialIcons}>
             <Image style={styles.icon} source={require("./assets/fb.png")} />
@@ -158,6 +164,13 @@ const styles = StyleSheet.create({
   value: {
     fontWeight: "500",
   },
+  quote: {
+    fontStyle: "italic",
+    color: "#555",
+    marginTop: 10,
+    textAlign: "center",
+    paddingHorizontal: 10,
+  },
   modalContent: {
     backgroundColor: "white",
     padding: 20,
@@ -169,18 +182,24 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
   },
+  modalText: {
+    fontSize: 14,
+    marginBottom: 5,
+  },
+  modalQuote: {
+    fontStyle: "italic",
+    color: "#333",
+    textAlign: "center",
+    marginTop: 10,
+    paddingHorizontal: 10,
+  },
   socialIcons: {
     flexDirection: "row",
     justifyContent: "space-around",
     marginTop: 15,
-    
   },
   icon: {
     width: 40,
     height: 40,
-  },
-  modalText: {
-    fontSize: 14,
-    marginBottom: 5,
   },
 });
