@@ -1,45 +1,32 @@
-import { StyleSheet, View } from "react-native";
-import Top10Lists from "./top-10/Top10Lists";
-import AllProfilesMain from "./components/all-profiles/AllProfilesMain";
-import Form from "./components/user-information/Form";
-import AllCharacteristics from "./components/characteristics/AllCharacteristics";
+import React, { useState, createContext, useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { useColorScheme } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { DefaultTheme, DarkTheme } from "@react-navigation/native";
-import React, { useState } from "react";
+import DrawNavigation from "./nav/DrawNavigation";
+import SignIn from "./components/sign-in/SignIn";
 
 const Stack = createNativeStackNavigator();
 
-const LightTheme = {
-  ...DefaultTheme,
-  colors: { ...DefaultTheme.colors, background: "white", text: "black" },
-};
+// Theme Context
+const ThemeContext = createContext();
 
-const CustomDarkTheme = {
-  ...DarkTheme,
-  colors: { ...DarkTheme.colors, background: "black", text: "white" },
+export const useTheme = () => useContext(ThemeContext);
+
+const ThemeProvider = ({ children }) => {
+  const [isDark, setIsDark] = useState(false);
+  return (
+    <ThemeContext.Provider value={{ isDark, setIsDark }}>
+      <NavigationContainer>{children}</NavigationContainer>
+    </ThemeContext.Provider>
+  );
 };
 
 export default function App() {
-  const colorScheme = useColorScheme();
-  const [isDark, setIsDark] = useState(colorScheme === "dark");
-
   return (
-    <NavigationContainer
-      theme={colorScheme === "light" ? LightTheme : CustomDarkTheme}>
-      <Stack.Navigator>
-        <Stack.Screen name="Profiles">
-          {() => <AllProfilesMain toggleTheme={() => setIsDark(!isDark)} />}
-        </Stack.Screen>
+    <ThemeProvider>
+      <Stack.Navigator initialRouteName="SignIn" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen name="DrawerNavigation" component={DrawNavigation} />
       </Stack.Navigator>
-    </NavigationContainer>
+    </ThemeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-});
